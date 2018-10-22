@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class TransferNovca extends Banka {
+public class TransferNovca extends Account {
 	Scanner unos= new Scanner(System.in);
 	private int sourceAccount;
 	private int targetAccount;

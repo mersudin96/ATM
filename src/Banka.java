@@ -1,27 +1,8 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Banka {
-	public static ArrayList<Account>listaRacuna=new ArrayList<Account>();
+public class Banka extends Account {
 	
-	public static int generisiBroj() {
-		int r=(int)(Math.random()*1000000000);
-		return r;
-	}
-	public static boolean vecPostoji(int broj) {
-		boolean uslov=false;
-		for(int i=0; i<listaRacuna.size(); i++) {
-			if(listaRacuna.get(i).getAccountNumber()==broj) {
-				uslov=true;
-				break;
-			}
-			else
-				uslov=false;
-		}
-		return uslov;
-	}
-	
-	
+
 	public static void main(String[] args) {
 		
 		Scanner unos=new Scanner(System.in);
@@ -45,31 +26,23 @@ public class Banka {
 				account.setAccountNumber(accNumber);
 				
 				System.out.print("Unesite vase ime: ");
-				String imeKor=unos.next();
-				account.setOwnerName(imeKor);
+				account.setOwnerName(unos.next());
 				System.out.print("Unesite password koji zelite ubuduce koristiti: ");
-				String password=unos.next();
-				account.setUserPassword(password);
+				account.setUserPassword(unos.next());
 				System.out.print("Koliko zelite novca poloziti na racun: ");
+				account.uplata(unos.nextDouble());
 				
-				int polog=unos.nextInt();
-				while(polog<=0) {
-					System.out.println("Morate staviti bar malo novca na racun.");
-					polog=unos.nextInt();
-				}
-				account.addFunds(polog);
 				listaRacuna.add(Account.getBrojRacunaUkupno()-1, account);
 				System.out.println("\nUspjesno otvoren racun. Vas broj racuna je: " +account.getAccountNumber() +"\n");
 				break;
 			
 			case 2:
 				TransferNovca transfer=new TransferNovca();
-				System.out.println("Unesite racun sa kojeg saljete novac: ");
+				System.out.print("Unesite racun sa kojeg saljete novac: ");
 				transfer.setSourceAccount(unos.nextInt());
-				System.out.println("");
-				System.out.println("Unesite racun na koji saljete novac: ");
+				System.out.print("Unesite racun na koji saljete novac: ");
 				transfer.setTargetAccount(unos.nextInt());
-				System.out.println("Unesite kolicinu novca koji zelite poslati: ");
+				System.out.print("Unesite kolicinu novca koji zelite poslati: ");
 				transfer.setAmmount(unos.nextDouble());
 				transfer.sendMoney();
 				break;
@@ -79,19 +52,7 @@ public class Banka {
 				int brRacuna=unos.nextInt();
 				System.out.print("Vas password: ");
 				String pass=unos.next();
-				for(int i=0; i<listaRacuna.size(); i++) {
-					if(listaRacuna.get(i).getAccountNumber()==brRacuna) {
-						if(listaRacuna.get(i).getUserPassword().equals(pass))
-							System.out.println(listaRacuna.get(i).toString());
-						else
-							System.out.println("Password nije validan.");
-						break;
-					}
-					else {
-						if(i==listaRacuna.size()-1)
-							System.out.println("Broj Racuna nije validan.");
-					}
-				}
+				Account.isValidAcc(brRacuna, pass);
 				break;
 				
 			case 4:
@@ -110,12 +71,9 @@ public class Banka {
 					System.out.println("Dovidjenja.");
 				else
 					System.out.println("Pogresan unos.");
-				break;
 				
 			}
 		}while(izborKor!=0);
 		unos.close();
-		
 	}
-	
 }
