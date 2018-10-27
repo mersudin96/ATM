@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
-public class TransferNovca extends Banka {
+public class TransferNovca extends Account {
 	Scanner unos= new Scanner(System.in);
+	
 	private int sourceAccount;
 	private int targetAccount;
 	private double ammount;
@@ -77,7 +78,7 @@ public class TransferNovca extends Banka {
 			else if(source && target && ammount>0 && tacanPassword==false)
 				System.out.println("Pogresan password.");
 			else
-				System.out.println("Momak. Nemoj se zajebavat sa nama.");
+				System.out.println("Momak. Nemoj se za*ebavat sa nama.");
 	}
 	
 }
