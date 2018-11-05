@@ -101,10 +101,6 @@ public class Account {
 	}
 	
 	public void uplata(double polog) {
-		while(polog<=0) {
-			System.out.println("Morate staviti bar malo novca na racun.");
-			polog=unos.nextDouble();
-		}
 		addFunds(polog);
 	}
 	
