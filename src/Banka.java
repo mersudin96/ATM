@@ -1,10 +1,15 @@
+import java.io.PrintWriter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Banka extends Account {
 	
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		
+		java.io.File racuni=new java.io.File("src/racuni.txt");
+		PrintWriter p=new PrintWriter(racuni);
+		PrintWriter t=new PrintWriter(new java.io.File("src/transakcije.txt"));
 		
 		Scanner unos=new Scanner(System.in);
 		int izborKor=-1;
@@ -57,6 +62,7 @@ public class Banka extends Account {
 					account.uplata(novac);
 					
 					listaRacuna.add(Account.getBrojRacunaUkupno()-1, account);
+					p.println(account);
 					System.out.println("\nUspjesno otvoren racun. Vas broj racuna je: " +account.getAccountNumber() +"\n");
 					break;
 				
@@ -108,6 +114,7 @@ public class Banka extends Account {
 					}while(novac<0);
 					transfer.setAmmount(novac);
 					transfer.sendMoney();
+					t.print(transfer);
 					break;
 					
 				case 3:
@@ -151,5 +158,6 @@ public class Banka extends Account {
 			
 		}while(izborKor!=0);
 		unos.close();
+		p.close();
 	}
 }
